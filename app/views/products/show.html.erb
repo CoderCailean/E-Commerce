@@ -1,0 +1,16 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1"><%= @product.name %></h1>
+    <h3 class="title is-4">
+      <strong>Price: </strong>$<%= '%.2f' % @product.price %>
+    </h3>
+    <h3 class="title is-4">
+      <strong>About This Coffee: </strong><%= @product.description %>
+    </h3>
+    <h3 class="title is-4">
+      <strong>Coffee Family: </strong><%= @category.name %>
+    </h3>
+    <%= form_with url: checkout_create_path, remote: true do %>
+      <%= hidden_field_tag(:product_id, product.id) %>
+      <%= button_tag "Add to Cart" %>
+    <% end %>
+</div>

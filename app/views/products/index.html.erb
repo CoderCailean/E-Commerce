@@ -1,0 +1,33 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">All Products</h1>
+  <div class="columns is-multiline">
+    <% @products.each do |product| %>
+    <div class="column is-4">
+      <div class="card">
+        <%# <div class="card-image">
+          <figure class="image is-2by3">
+            <img src=<%= product.image_url%> <%# alt=<%= product.name%> <%#>
+          </figure>
+        </div> %>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4"><%= link_to product.name, product %></p>
+              <p>
+                <strong>Price: </strong>$<%= '%.2f' % (product.price) %>
+              </p>
+            </div>
+          </div>
+
+          <div class="content">
+            <p>
+              <strong>Description: </strong><%= product.description%>
+            </p>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
