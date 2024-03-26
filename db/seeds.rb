@@ -2,6 +2,7 @@ require 'uri'
 
 Product.delete_all
 Category.delete_all
+AdminUser.delete_all
 
 
 100.times do

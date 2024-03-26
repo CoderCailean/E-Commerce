@@ -1,5 +1,4 @@
 class CartController < ApplicationController
-
   def index
     @totalprice = 0
 
@@ -36,3 +35,4 @@ class CartController < ApplicationController
     redirect_to cart_path method: :index
   end
 end
+
