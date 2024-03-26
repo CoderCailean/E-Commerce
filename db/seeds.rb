@@ -1,3 +1,4 @@
+require 'uri'
 
 Category.delete_all
 Product.delete_all

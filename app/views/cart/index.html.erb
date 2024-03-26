@@ -1,0 +1,51 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">Cart Summary</h1>
+  <div class="columns is-multiline">
+    <% if cart.present? %>
+      <% cart.each do |product| %>
+        <div class="column is-three-quarters">
+          <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">
+                  <%= link_to product["product"].name, product["product"] %>
+                </p>
+                <p>
+                  <strong>Price: </strong>$<%= '%.2f' % (product["product"].price) %>
+                </p>
+                <p>
+                  <strong>Description: </strong><%= product["product"].description%>
+                </p>
+                <p>
+                  <strong>Quantity: </strong><%= product["quantity"]%>
+                </p>
+                <br />
+                <p>Remove Item</p><%= button_to "❌", cart_path(product["product"]), method: :delete %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <div class="column is-one-quarter is-flex-direction-column">
+        <h1 class="title is-4">
+          Checkout Summary
+        </h1>
+        <p><strong>Subtotal: </strong>$<%= '%.2f' % @totalprice %></p>
+        <p><strong>GST: </strong>$<%= '%.2f' % (@totalprice * 0.05) %></p>
+        <p><strong>PST: </strong>$<%= '%.2f' % (@totalprice * 0.07) %></p>
+        <p><strong>Total: </strong>$<%= '%.2f' % ((@totalprice * 0.07) + (@totalprice * 0.07) + @totalprice) %></p>
+        <%= form_with url: checkout_create_path, remote: true do %>
+          <%= hidden_field_tag(:product_ids, cart) %>
+          <%= button_tag "Checkout Now", class: "button is-fullwidth" %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="column is-4">
+        <p>Your cart is empty, get out there and keep shopping!</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
