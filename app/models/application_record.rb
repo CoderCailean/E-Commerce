@@ -9,3 +9,4 @@ class ApplicationRecord < ActiveRecord::Base
     authorizable_ransackable_associations
   end
 end
+
