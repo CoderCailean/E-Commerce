@@ -14,8 +14,23 @@ class CartController < ApplicationController
     product_id = params[:product_id].to_i
     quantity = params[:quantity].to_i
 
-    session[:shopping_cart] << {"product" => product_id, "quantity" => quantity}
+    cart_contains_product = false
+
+    session[:shopping_cart].each do |item|
+      if(item["product"].to_i == product_id)
+        cart_contains_product = true
+        if(quantity != 0)
+          item["quantity"] += quantity
+        end
+      end
+    end
+
+    if(!cart_contains_product)
+      session[:shopping_cart] << {"product" => product_id, "quantity" => quantity}
+    end
+
     # ADD CHECK TO CART, IF ITEM EXISTS UPDATE QUANTITY INSTEAD
+
     session[:shopping_cart].each do |item|
       # logger.debug(item["product"] == product_id)
     end
