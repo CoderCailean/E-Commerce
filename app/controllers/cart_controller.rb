@@ -20,6 +20,10 @@ class CartController < ApplicationController
       # logger.debug(item["product"] == product_id)
     end
 
+    respond_to do |format|
+      format.html{redirect_back(fallback_location: root_path)}
+      format.js
+    end
   end
 
   def destroy

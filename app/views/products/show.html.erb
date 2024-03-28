@@ -1,4 +1,11 @@
 <div class="container is-fluid pt-6">
+  <% if @product.image.present? %>
+  <div class="card-image">
+    <figure class="image" style="width:200px;">
+      <%= image_tag @product.image%>
+    </figure>
+  </div>
+  <% end %>
   <h1 class="title is-1"><%= @product.name %></h1>
     <h3 class="title is-4">
       <strong>Price: </strong>$<%= '%.2f' % @product.price %>
@@ -7,11 +14,11 @@
       <strong>About This Coffee: </strong><%= @product.description %>
     </h3>
     <h3 class="title is-4">
-      <strong>Coffee Family: </strong><%= @category.name %>
+      <strong>Coffee Family: </strong><%= link_to @category.name, @category %>
     </h3>
     <%= form_with url: cart_index_path, method: :post do |f| %>
       <%= hidden_field_tag(:product_id, @product.id) %>
       <%= f.select :quantity, options_for_select([1,2,3,4,5]) %>
-      <%= button_tag "Add to Cart" %>
+      <%= button_tag "Add to Cart", class: "ml-2" %>
     <% end %>
 </div>

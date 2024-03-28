@@ -1,0 +1,9 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">Coffee Group: <%= @category.name %></h1>
+  <h1 class="title is-3">Coffee products in this group:</h1>
+  <% @products.each do |product| %>
+  <p>
+    <%= link_to product.name, product %>
+  </p>
+  <% end %>
+</div>

@@ -19,7 +19,7 @@ class CheckoutController < ApplicationController
           }
       })
 
-      running_total =+ (product["product"].price * 100).to_i
+      running_total += ((product["product"].price * 100) * product["quantity"]).to_i
     end
 
     line_items.push({

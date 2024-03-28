@@ -7,8 +7,8 @@
 
         <% if product.image.present? %>
         <div class="card-image">
-          <figure class="image">
-            <%= image_tag product.image.variant(resize_to_fit: [200,200])%>
+          <figure class="image" style="width:200px;">
+            <%= image_tag product.image %>
           </figure>
         </div>
         <% end %>

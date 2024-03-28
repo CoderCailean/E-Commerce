@@ -1,0 +1,19 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">All Categories</h1>
+  <div class="columns is-multiline">
+    <% @categories.each do |category| %>
+    <div class="column is-4">
+      <div class="card">
+
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4"><%= link_to category.name, category %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
