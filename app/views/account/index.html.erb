@@ -1,0 +1,28 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">Account Summary</h1>
+  <p><strong>Full Name: </strong><%= @user.full_name%></p>
+  <p><strong>Email: </strong><%= @user.email%></p>
+  <p><strong>Address: </strong><%= @user.address%></p>
+  <h1 class="title is-1 pt-6">Your Orders</h1>
+  <% if @orders.size > 0 %>
+    <% @orders.each do |order| %>
+
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <p>Order ID: <%= link_to "Order ##{order.id}", order %></p>
+          <p>Date Placed: <%= order.order_date %></p>
+          <p>Fulfillment Status:
+            <% if order.fulfillment_status == 1 %>
+            Pending
+            <% elsif order.fulfillment_status == 2%>
+            Paid
+            <% else %>
+            Shipped
+            <% end %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

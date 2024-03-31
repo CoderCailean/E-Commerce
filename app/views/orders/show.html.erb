@@ -1,0 +1,10 @@
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">Order #<%= @order.id %></h1>
+  <h1 class="title is-3">Product Summary</h1>
+  <% @products.each do |product| %>
+    <p>
+      x<%= product["quantity"] %> - <%= product["product"].name %> -
+      $<%= '%.2f' % (product["quantity"] * product["product"].price) %>
+    </p>
+  <% end %>
+</div>

@@ -2,7 +2,7 @@
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
       <%# <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> %>
-      <p class="has-text-weight-semibold is-size-4">E-Commerce</p>
+      <p class="has-text-weight-semibold is-size-4">JavaJunction</p>
     </a>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -29,6 +29,23 @@
       <a href="/cart" class="navbar-item">
         Cart <%= cart.size %>🛒
       </a>
+    </div>
+    <div class="navbar-end">
+      <% if session[:user_id] == nil %>
+      <a href="/login" class="navbar-item">
+        Login
+      </a>
+      <a href="/signup" class="navbar-item">
+        Sign Up
+      </a>
+      <% else %>
+      <a href="/account" class="navbar-item">
+        My Account
+      </a>
+      <a href="/logout" class="navbar-item">
+        Logout
+      </a>
+      <% end %>
     </div>
   </div>
 </nav>

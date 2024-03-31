@@ -1,5 +1,6 @@
-class Product < ApplicationRecord
-  belongs_to :category
+class Products < ApplicationRecord
+  belongs_to :category, optional: true
+  has_many :order_products
   has_one_attached :image
 
   # def self.ransackable_attributes(auth_object = nil)

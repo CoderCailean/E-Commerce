@@ -1,2 +1,13 @@
-<h1>Login#index</h1>
-<p>Find me in app/views/login/index.html.erb</p>
+<div class="container is-fluid pt-6">
+  <h1 class="title is-1">Login</h1>
+  <%= form_with url: login_index_path, method: :post do |f| %>
+    <%= f.label :email, "Email: " %>
+    <%= f.text_field :email %>
+    <%= f.label :password, "Password: " %>
+    <%= f.password_field :password %>
+    <% if flash[:error] %>
+     <p class="has-text-danger">Incorrect Email/Password Combination</p>
+    <% end %>
+    <%= button_tag "Login", class: "ml-2" %>
+  <% end %>
+</div>

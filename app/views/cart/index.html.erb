@@ -20,8 +20,15 @@
                 <p>
                   <strong>Quantity: </strong><%= product["quantity"]%>
                 </p>
-                <br />
-                <p>Remove Item</p><%= button_to "❌", cart_path(product["product"]), method: :delete %>
+                <br/>
+                <%= form_with url: cart_index_path, method: :post do |f| %>
+                  <%= hidden_field_tag(:product_id, product["product"].id) %>
+                  <%= hidden_field_tag(:method, "update") %>
+                  <%= f.select :quantity, options_for_select([1,2,3,4,5,6,7,8,9,10]) %>
+                  <%= button_tag "Update Quantity", class: "ml-2" %>
+                <% end %>
+                <br/>
+                <%= button_to "Remove Item ❌", cart_path(product["product"]), method: :delete %>
               </div>
             </div>
           </div>

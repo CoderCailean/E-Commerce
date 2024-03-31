@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
-  get 'signup/index'
-  get 'login/index'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   get 'home/index'
 
+  resources :login, only:[:index, :create]
+  resources :signup, only:[:index]
+  resources :logout, only:[:index]
+  resources :account, only:[:index]
+  resources :orders, only:[:show]
   resources :products, only:[:index, :show]
   resources :category, only:[:index, :show]
   resources :about, only:[:index]
-  resources :cart, only:[:create, :destroy, :index]
+
+  resources :cart, only:[:create, :destroy, :index, :update]
+
   root to: "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
