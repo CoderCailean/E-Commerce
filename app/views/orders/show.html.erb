@@ -4,7 +4,21 @@
   <% @products.each do |product| %>
     <p>
       x<%= product["quantity"] %> - <%= product["product"].name %> -
-      $<%= '%.2f' % (product["quantity"] * product["product"].price) %>
+      $<%= '%.2f' % (product["quantity"] * product["sale_price"]) %>
     </p>
   <% end %>
+  <br/>
+  <p>
+    <strong>Sub Total:</strong>: $<%= @order_total %>
+  </p>
+  <p>
+    <strong>GST:</strong> $<%= '%.2f' % ((@order_total * @province.gst) / 100) %>
+  </p>
+  <p>
+    <strong>PST:</strong> $<%= '%.2f' % ((@order_total * @province.pst) / 100) %>
+  </p>
+  <p>
+    <strong>Grand Total:</strong> $<%= '%.2f' % (@order_total + ((@order_total * @province.hst) / 100)) %>
+  </p>
+
 </div>

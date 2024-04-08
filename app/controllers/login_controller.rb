@@ -7,7 +7,7 @@ class LoginController < ApplicationController
     email = params[:email]
     password = params[:password]
 
-    user = User.find_by(email: email)
+    user = Users.find_by(email: email)
 
     if(user)
       if(user.password == password)

@@ -6,6 +6,14 @@ class CheckoutController < ApplicationController
     line_items = []
     running_total = 0
 
+    if(session[:user_id])
+      user = Users.find(session[:user_id])
+      province = Provinces.find(user.provinces_id)
+      provincial_rate = province.pst
+    else
+      provincial_rate = 0
+    end
+
     user_products.each do |product|
       line_items.push({
         quantity: product["quantity"],
@@ -39,7 +47,7 @@ class CheckoutController < ApplicationController
       quantity: 1,
       price_data: {
         currency: "cad",
-        unit_amount: (running_total * 0.07).to_i,
+        unit_amount: ((running_total * provincial_rate) / 100).to_i,
         product_data: {
           name: "PST",
           description: "Provincial Sales Tax",

@@ -1,4 +1,4 @@
-class Products < ApplicationRecord
+class Product < ApplicationRecord
   belongs_to :category, optional: true
   has_many :order_products
   has_one_attached :image

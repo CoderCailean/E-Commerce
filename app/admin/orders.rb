@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :order_date, :fulfillment_status, :users_id
+  permit_params :order_date, :fulfillment_status, :user_id
   config.filters = false
 
   #

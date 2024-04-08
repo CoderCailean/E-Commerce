@@ -1,7 +1,10 @@
 <div class="container is-fluid pt-6">
   <h1 class="title is-1">All Products</h1>
+  <div class="container is-max-desktop py-4">
+    <%= paginate @products, outer_window: 2%>
+  </div>
   <div class="columns is-multiline">
-    <% @products.each do |product| %>
+    <%  @products.each do |product| %>
     <div class="column is-4">
       <div class="card">
 
@@ -18,7 +21,7 @@
             <div class="media-content">
               <p class="title is-4"><%= link_to product.name, product %></p>
               <p>
-                <strong>Price: </strong>$<%= '%.2f' % (product.price) %>
+                <strong>Price: </strong>$<%= (product.price) %>
               </p>
             </div>
           </div>
@@ -40,5 +43,8 @@
       </div>
     </div>
   <% end %>
+  </div>
+  <div class="container is-max-desktop py-4">
+    <%= paginate @products, outer_window: 2%>
   </div>
 </div>

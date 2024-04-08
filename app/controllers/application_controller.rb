@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action :initialize_session
-  helper_method :cart, :logout
+  helper_method :cart, :logout, :user
 
   private
   def initialize_session
@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
       )
     end
     user_products
+  end
+
+  def user
+    user = Users.find(session[:user_id])
   end
 
 end

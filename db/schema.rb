@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_31_182811) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_05_154513) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -75,14 +75,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_31_182811) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "orders_id", null: false
-    t.integer "products_id", null: false
-    t.index ["orders_id"], name: "index_order_products_on_orders_id"
-    t.index ["products_id"], name: "index_order_products_on_products_id"
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
+    t.decimal "sale_price"
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
-# Could not dump table "orders" because of following StandardError
-#   Unknown type '' for column 'users_id'
+  create_table "orders", force: :cascade do |t|
+    t.date "order_date"
+    t.integer "fulfillment_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -96,9 +103,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_31_182811) do
 
   create_table "provinces", force: :cascade do |t|
     t.string "name"
-    t.integer "tax_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gst"
+    t.integer "pst"
+    t.integer "hst"
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,8 +123,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_31_182811) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "order_products", "orders", column: "orders_id"
-  add_foreign_key "order_products", "products", column: "products_id"
+  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "users", "provinces", column: "provinces_id"
 end

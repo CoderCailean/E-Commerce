@@ -12,7 +12,7 @@
                   <%= link_to product["product"].name, product["product"] %>
                 </p>
                 <p>
-                  <strong>Price: </strong>$<%= '%.2f' % (product["product"].price) %>
+                  <strong>Price: </strong>$<%= (product["product"].price) %>
                 </p>
                 <p>
                   <strong>Description: </strong><%= product["product"].description%>
@@ -39,10 +39,10 @@
         <h1 class="title is-4">
           Checkout Summary
         </h1>
-        <p><strong>Subtotal: </strong>$<%= '%.2f' % @totalprice %></p>
-        <p><strong>GST: </strong>$<%= '%.2f' % (@totalprice * 0.05) %></p>
-        <p><strong>PST: </strong>$<%= '%.2f' % (@totalprice * 0.07) %></p>
-        <p><strong>Total: </strong>$<%= '%.2f' % ((@totalprice * 0.07) + (@totalprice * 0.07) + @totalprice) %></p>
+        <p><strong>Subtotal: </strong>$<%= @totalprice %></p>
+        <p><strong>GST: </strong>$<%= '%.2f' % ((@totalprice * @government_rate) / 100) %></p>
+        <p><strong>PST: </strong>$<%= '%.2f' % ((@totalprice * @provincial_rate) / 100) %></p>
+        <p><strong>Total: </strong>$<%= '%.2f' % (((@totalprice * @provincial_rate) / 100) + ((@totalprice * @government_rate) / 100) + @totalprice) %></p>
         <%= form_with url: checkout_create_path, remote: true do %>
           <%= hidden_field_tag(:product_ids, cart) %>
           <%= button_tag "Checkout Now", class: "button is-fullwidth" %>

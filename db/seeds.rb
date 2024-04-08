@@ -2,31 +2,31 @@ require 'uri'
 
 OrderProduct.delete_all
 Order.delete_all
-User.delete_all
-Province.delete_all
+Users.delete_all
+Provinces.delete_all
 Product.delete_all
 Category.delete_all
 AdminUser.delete_all
 
-Province.create(name: "Alberta", tax_rate: 0)
-Province.create(name: "British Columbia", tax_rate: 7)
-Province.create(name: "Manitoba", tax_rate: 7)
-Province.create(name: "New Brunswick", tax_rate: 10)
-Province.create(name: "Newfoundland and Labrador", tax_rate: 10)
-Province.create(name: "Northwest Territories", tax_rate: 0)
-Province.create(name: "Nova Scotia", tax_rate: 10)
-Province.create(name: "Nunavut", tax_rate: 0)
-Province.create(name: "Ontario", tax_rate: 8)
-Province.create(name: "Prince Edward Island", tax_rate: 10)
-Province.create(name: "Quebec", tax_rate: 10)
-Province.create!(name: "Saskatchewan", tax_rate: 6)
-Province.create!(name: "Yukon", tax_rate: 0)
+Provinces.create(name: "Alberta", gst: 5, pst: 0, hst: 5)
+Provinces.create(name: "British Columbia", gst: 5, pst: 7, hst: 12)
+Provinces.create(name: "Manitoba", gst: 5, pst: 7, hst: 12)
+Provinces.create(name: "New Brunswick", gst: 5, pst: 10, hst: 15)
+Provinces.create(name: "Newfoundland and Labrador", gst: 5, pst: 10, hst: 15)
+Provinces.create(name: "Northwest Territories", gst: 5, pst: 0, hst: 5)
+Provinces.create(name: "Nova Scotia", gst: 5, pst: 10, hst: 15)
+Provinces.create(name: "Nunavut", gst: 5, pst: 0, hst: 5)
+Provinces.create(name: "Ontario", gst: 5, pst: 8, hst: 13)
+Provinces.create(name: "Prince Edward Island", gst: 5, pst: 10, hst: 15)
+Provinces.create(name: "Quebec", gst: 5, pst: 10, hst: 15)
+Provinces.create!(name: "Saskatchewan", gst: 5, pst: 6, hst: 11)
+Provinces.create!(name: "Yukon", gst: 5, pst: 0, hst: 5)
 
 
 10.times do
-  province = Province.find(rand(1...10))
+  province = Provinces.find(rand(1...10))
 
-  user = User.create!(
+  user = Users.create!(
     full_name: Faker::Name.first_name + " " + Faker::Name.last_name,
     email: Faker::Name.initials(number: 4) + "@gmail.com",
     password: Faker::Fantasy::Tolkien.character,
@@ -40,21 +40,21 @@ end
 
   product = Product.create(
     name: Faker::Coffee.blend_name,
-    price: Faker::Number.between(from: 0.5, to: 29.99),
+    price: Faker::Number.decimal(l_digits: 2),
     description: Faker::Coffee.notes,
     category_id: category_id.id
   )
 
-  query = URI.encode_www_form_component(["coffee"])
-  downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
-  product.image.attach(io: downloaded_image, filename: "m-#{product.name}.jpg")
-  sleep(1)
+  # query = URI.encode_www_form_component(["coffee"])
+  # downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
+  # product.image.attach(io: downloaded_image, filename: "m-#{product.name}.jpg")
+  # sleep(1)
 end
 
 20.times do
-  user_count = User.count
+  user_count = Users.count
 
-  user = User.find(rand(1...user_count))
+  user = Users.find(rand(1...user_count))
 
   order = Order.create(
     user_id: user.id,
@@ -67,9 +67,10 @@ end
     product = Product.find(rand(1...product_count))
 
     OrderProduct.create!(
-      orders_id: order.id,
-      products_id: product.id,
-      quantity: Faker::Number.between(from: 1, to: 10)
+      order_id: order.id,
+      product_id: product.id,
+      quantity: Faker::Number.between(from: 1, to: 10),
+      sale_price: product.price
     )
   end
 end
