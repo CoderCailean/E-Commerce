@@ -4,45 +4,7 @@
     <%= paginate @products, outer_window: 2%>
   </div>
   <div class="columns is-multiline">
-    <%  @products.each do |product| %>
-    <div class="column is-4">
-      <div class="card">
-
-        <% if product.image.present? %>
-        <div class="card-image">
-          <figure class="image" style="width:200px;">
-            <%= image_tag product.image %>
-          </figure>
-        </div>
-        <% end %>
-
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4"><%= link_to product.name, product %></p>
-              <p>
-                <strong>Price: </strong>$<%= (product.price) %>
-              </p>
-            </div>
-          </div>
-
-          <div class="content">
-            <p>
-              <strong>Description: </strong><%= product.description%>
-            </p>
-            <br>
-          </div>
-          <div class="content">
-          <%= form_with url: cart_index_path, method: :post do |f| %>
-            <%= hidden_field_tag(:product_id, product.id) %>
-            <%= f.select :quantity, options_for_select([1,2,3,4,5,6,7,8,9,10]) %>
-            <%= button_tag "Add to Cart", class: "ml-2" %>
-          <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+    <%= render @products %>
   </div>
   <div class="container is-max-desktop py-4">
     <%= paginate @products, outer_window: 2%>
