@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :login, only:[:index, :create]
-  resources :signup, only:[:index]
+  resources :signup, only:[:index, :create]
   resources :logout, only:[:index]
   resources :account, only:[:index]
   resources :orders, only:[:show]
