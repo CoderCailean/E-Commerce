@@ -1,15 +1,23 @@
 <div class="container is-fluid pt-6">
-  <h1 class="title is-1">Sign Up</h1>
-  <%= form_with url: login_index_path, method: :post do |f| %>
-    <%= f.label :email, "Email: " %>
-    <%= f.text_field :email %>
-    <%= f.label :password, "Password: " %>
-    <%= f.password_field :password %>
-    <%= f.label :password, "Confirm Password: " %>
-    <%= f.password_field :password %>
-    <% if flash[:error] %>
-     <p class="has-text-danger">Incorrect Email/Password Combination</p>
+  <div class="container is-max-desktop pt-6">
+    <h1 class="title is-1 mb-6">Sign Up</h1>
+    <%= form_with url: signup_index_path, method: :post do |f| %>
+      <%= f.label :email, "Email: " , class: "label mt-4" %>
+      <%= f.text_field :email, class: "input is-rounded" %>
+      <% if flash[:error] %>
+      <p class="has-text-danger">Enter a valid email.</p>
+      <% end %>
+
+      <%= f.label :password, "Password: ", class: "label mt-4" %>
+      <%= f.password_field :password, class: "input is-rounded" %>
+      <% if flash[:error] %>
+      <p class="has-text-danger">Passwords do not match.</p>
+      <% end %>
+
+      <%= f.label :password2, "Confirm Password: ", class: "label mt-4" %>
+      <%= f.password_field :password2, class: "input is-rounded" %>
+
+      <%= button_tag "Register", class: "button mt-4" %>
     <% end %>
-    <%= button_tag "Login", class: "ml-2" %>
-  <% end %>
+  </div>
 </div>
