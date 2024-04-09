@@ -45,10 +45,10 @@ end
     category_id: category_id.id
   )
 
-  # query = URI.encode_www_form_component(["coffee"])
-  # downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
-  # product.image.attach(io: downloaded_image, filename: "m-#{product.name}.jpg")
-  # sleep(1)
+  query = URI.encode_www_form_component(["coffee"])
+  downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
+  product.image.attach(io: downloaded_image, filename: "m-#{product.name}.jpg")
+  sleep(1)
 end
 
 20.times do

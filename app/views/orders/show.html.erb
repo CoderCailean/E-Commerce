@@ -9,7 +9,7 @@
   <% end %>
   <br/>
   <p>
-    <strong>Sub Total:</strong>: $<%= @order_total %>
+    <strong>Sub Total:</strong> $<%='%.2f' %  @order_total %>
   </p>
   <p>
     <strong>GST:</strong> $<%= '%.2f' % ((@order_total * @province.gst) / 100) %>
