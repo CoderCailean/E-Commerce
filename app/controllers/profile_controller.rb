@@ -13,20 +13,37 @@ class ProfileController < ApplicationController
   end
 
   def create
+
+
     name = params[:name]
     address = params[:address]
     province_name = params[:province]
     postal_code = params[:postal_code]
+    method = params[:method]
 
     province = Provinces.find_by(name: province_name)
 
-    new_profile = Profile.create(
-      full_name: name,
-      address: address,
-      postal_code: postal_code,
-      province_id: province.id,
-      user_id: current_user.id
-    )
+
+    if(method == "update")
+      existing_profile = Profile.find_by(user_id: current_user.id)
+
+      existing_profile.update(
+        full_name: name,
+        address: address,
+        postal_code: postal_code,
+        province_id: province.id,
+      )
+    else
+      new_profile = Profile.create(
+        full_name: name,
+        address: address,
+        postal_code: postal_code,
+        province_id: province.id,
+        user_id: current_user.id
+      )
+    end
+
+
     respond_to do |format|
       format.html{redirect_back(fallback_location: root_path)}
       format.js

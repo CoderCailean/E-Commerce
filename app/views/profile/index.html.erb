@@ -2,30 +2,43 @@
   <h1 class="title is-1">Account Summary</h1>
   <p><strong>Email: </strong><%= @user.email%></p>
   <% if @profile.nil? %>
-    <h1>Profile Setup</h1>
-    <%= form_with url: profile_index_path, method: :post do |f| %>
-      <%= f.label :name, "Full Name: ", class: "label mt-4" %>
-      <%= f.text_field :name, class: "input" %>
-      <%= f.label :address, "Address: ", class: "label mt-4" %>
-      <%= f.text_field :address, class: "input" %>
-      <%= f.label :postal_code, "Postal Code: ", class: "label mt-4" %>
-      <%= f.text_field :postal_code, class: "input" %>
-      <%= f.select :province, options_for_select(@province_ids) %>
-      <%= button_tag "Update Profile", class: "button mt-4" %>
-    <% end %>
   <% else %>
-    <%= form_with url: profile_index_path, method: :post do |f| %>
-      <%= f.label :name, "Full Name: ", class: "label mt-4" %>
-      <%= f.text_field :name, class: "input", value: @profile.full_name %>
-      <%= f.label :address, "Address: ", class: "label mt-4" %>
-      <%= f.text_field :address, class: "input", value: @profile.address %>
-      <%= f.label :postal_code, "Postal Code: ", class: "label mt-4" %>
-      <%= f.text_field :postal_code, class: "input", value: @profile.postal_code %>
-      <%= f.select :province, options_for_select(@province_ids) %>
-      <%= button_tag "Update Profile", class: "button mt-4" %>
-    <% end %>
-
+    <p><strong>Full Name: </strong><%= @profile.full_name%></p>
+    <p><strong>Address: </strong><%= @profile.address%></p>
+    <p><strong>Postal Code: </strong><%= @profile.postal_code%></p>
   <% end %>
+
+  <div class="columns">
+    <div class="column is-half pt-6">
+      <% if @profile.nil? %>
+        <h1>Profile Setup</h1>
+        <%= form_with url: profile_index_path, method: :post do |f| %>
+          <%= f.label :name, "Full Name: ", class: "label mt-4" %>
+          <%= f.text_field :name, class: "input" %>
+          <%= f.label :address, "Address: ", class: "label mt-4" %>
+          <%= f.text_field :address, class: "input" %>
+          <%= f.label :postal_code, "Postal Code: ", class: "label mt-4" %>
+          <%= f.text_field :postal_code, class: "input" %>
+          <%= f.select :province, options_for_select(@province_ids), {}, {class: "select mt-4"} %>
+          <%= button_tag "Update Profile", class: "button mt-4 ml-6" %>
+        <% end %>
+      <% else %>
+        <%= form_with url: profile_index_path, method: :post do |f| %>
+          <%= hidden_field_tag(:method, "update") %>
+          <%= f.label :name, "Full Name: ", class: "label mt-4" %>
+          <%= f.text_field :name, class: "input", value: @profile.full_name %>
+          <%= f.label :address, "Address: ", class: "label mt-4" %>
+          <%= f.text_field :address, class: "input", value: @profile.address %>
+          <%= f.label :postal_code, "Postal Code: ", class: "label mt-4" %>
+          <%= f.text_field :postal_code, class: "input", value: @profile.postal_code %>
+          <%= f.select :province, options_for_select(@province_ids), {}, {class: "select mt-4"} %>
+          <%= button_tag "Update Profile", class: "button mt-4 ml-6" %>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+
   <h1 class="title is-1 pt-6">Your Orders</h1>
   <% if @orders.size > 0 %>
     <% @orders.each do |order| %>
