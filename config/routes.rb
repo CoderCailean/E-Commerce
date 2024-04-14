@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
+  devise_for :users
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   get 'home/index'
 
-  resources :login, only:[:index, :create]
-  resources :signup, only:[:index, :create]
-  resources :logout, only:[:index]
+  resources :profile, only:[:index, :create]
   resources :account, only:[:index]
   resources :orders, only:[:show]
   resources :products, only:[:index, :show]

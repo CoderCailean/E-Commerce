@@ -2,7 +2,7 @@ require 'uri'
 
 OrderProduct.delete_all
 Order.delete_all
-Users.delete_all
+User.delete_all
 Provinces.delete_all
 Product.delete_all
 Category.delete_all
@@ -26,12 +26,17 @@ Provinces.create!(name: "Yukon", gst: 5, pst: 0, hst: 5)
 10.times do
   province = Provinces.find(rand(1...10))
 
-  user = Users.create!(
-    full_name: Faker::Name.first_name + " " + Faker::Name.last_name,
+  new_user = User.create!(
     email: Faker::Name.initials(number: 4) + "@gmail.com",
-    password: Faker::Fantasy::Tolkien.character,
+    password: 'password',
+    password_confirmation: 'password') if Rails.env.development?
+
+  user_profile = Profile.create!(
+    full_name: Faker::Name.first_name + " " + Faker::Name.last_name,
     address: Faker::Address.street_address,
-    provinces_id: province.id
+    postal_code: Faker::Address.zip,
+    province_id: province.id,
+    user_id: new_user.id
   )
 end
 
@@ -52,9 +57,9 @@ end
 end
 
 20.times do
-  user_count = Users.count
+  user_count = User.count
 
-  user = Users.find(rand(1...user_count))
+  user = User.find(rand(1...user_count))
 
   order = Order.create(
     user_id: user.id,

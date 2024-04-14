@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
   def show
+    @profile = Profile.find_by(user_id: current_user.id)
     @order = Order.find(params[:id])
     @orderproducts = OrderProduct.where(order_id: params[:id])
     @products = []
     @order_total = 0
-    @province = Provinces.find(user.provinces_id)
+    @province = Provinces.find(@profile.province_id)
     product_ids = []
 
     @orderproducts.each do |product|

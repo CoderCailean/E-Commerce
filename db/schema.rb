@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_10_150546) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_10_155307) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -102,6 +102,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_150546) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "full_name"
+    t.string "address"
+    t.string "postal_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "province_id", null: false
+    t.index ["province_id"], name: "index_profiles_on_province_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -112,14 +124,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_150546) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password"
-    t.string "full_name"
-    t.string "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "provinces_id", null: false
-    t.index ["provinces_id"], name: "index_users_on_provinces_id"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -128,5 +139,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_150546) do
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
-  add_foreign_key "users", "provinces", column: "provinces_id"
+  add_foreign_key "profiles", "provinces"
+  add_foreign_key "profiles", "provinces", column: "id"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "profiles", "users", column: "id"
 end

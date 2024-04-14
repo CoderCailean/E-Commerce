@@ -2,9 +2,9 @@ class CartController < ApplicationController
   def index
     @totalprice = 0
     @government_rate = 5
-    if(session[:user_id])
-      user = Users.find(session[:user_id])
-      province = Provinces.find(user.provinces_id)
+    if(current_user)
+      profile = Profile.find_by(user_id: current_user.id)
+      province = Provinces.find(profile.province_id)
       @provincial_rate = province.pst
     else
       @provincial_rate = 0

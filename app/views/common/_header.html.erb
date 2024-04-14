@@ -31,18 +31,18 @@
       </a>
     </div>
     <div class="navbar-end">
-      <% if session[:user_id] == nil %>
-      <a href="/login" class="navbar-item">
+      <% if current_user == nil %>
+      <a href="/users/sign_in" class="navbar-item">
         Login
       </a>
-      <a href="/signup" class="navbar-item">
+      <a href="/users/sign_up" class="navbar-item">
         Sign Up
       </a>
       <% else %>
-      <a href="/account" class="navbar-item">
+      <a href="/profile" class="navbar-item">
         My Account
       </a>
-      <a href="/logout" class="navbar-item">
+      <a href="/users/sign_out" class="navbar-item">
         Logout
       </a>
       <% end %>

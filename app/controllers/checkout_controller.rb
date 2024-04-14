@@ -6,9 +6,9 @@ class CheckoutController < ApplicationController
     line_items = []
     running_total = 0
 
-    if(session[:user_id])
-      user = Users.find(session[:user_id])
-      province = Provinces.find(user.provinces_id)
+    if(current_user)
+      profile = Profile.find_by(user_id: current_user.id)
+      province = Provinces.find(profile.province_id)
       provincial_rate = province.pst
     else
       provincial_rate = 0
@@ -76,9 +76,11 @@ class CheckoutController < ApplicationController
     # WE TAKEN YOUR MONEY
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
   end
 
   def cancel
     # the transaction process stopped
+    redirect_to root_url, notice: "Purchase Unsuccessful"
   end
 end
