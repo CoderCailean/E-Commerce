@@ -3,8 +3,15 @@ class ProfileController < ApplicationController
     if(current_user)
       @user = User.find(current_user.id)
       @profile = Profile.find_by(user_id: current_user.id)
+
+      if(@profile.nil?)
+      else
+        @user_province = Provinces.find(@profile.province_id)
+      end
+
       @orders = Order.where(user_id: current_user.id)
-      @user_province = Provinces.find(@profile.province_id)
+
+
       provinces = Provinces.all
       @province_ids = []
       provinces.each do |province|
@@ -22,7 +29,7 @@ class ProfileController < ApplicationController
     method = params[:method] || "create"
 
     province = Provinces.find_by(name: province_name)
-
+    puts province.inspect
 
     if(method == "update")
       existing_profile = Profile.find_by(user_id: current_user.id)
@@ -34,7 +41,7 @@ class ProfileController < ApplicationController
         province_id: province.id,
       )
     else
-      new_profile = Profile.create(
+      new_profile = Profile.create!(
         full_name: name,
         address: address,
         postal_code: postal_code,

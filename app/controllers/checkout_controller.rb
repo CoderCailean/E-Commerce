@@ -97,7 +97,6 @@ class CheckoutController < ApplicationController
 
     empty_cart
 
-    puts @payment_intent.id
     redirect_to root_url, notice: "Purchase Successful"
 
   end
