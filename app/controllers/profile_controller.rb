@@ -4,6 +4,7 @@ class ProfileController < ApplicationController
       @user = User.find(current_user.id)
       @profile = Profile.find_by(user_id: current_user.id)
       @orders = Order.where(user_id: current_user.id)
+      @user_province = Provinces.find(@profile.province_id)
       provinces = Provinces.all
       @province_ids = []
       provinces.each do |province|
@@ -14,12 +15,11 @@ class ProfileController < ApplicationController
 
   def create
 
-
-    name = params[:name]
-    address = params[:address]
+    name = params[:name] || ""
+    address = params[:address] || ""
     province_name = params[:province]
-    postal_code = params[:postal_code]
-    method = params[:method]
+    postal_code = params[:postal_code] || ""
+    method = params[:method] || "create"
 
     province = Provinces.find_by(name: province_name)
 

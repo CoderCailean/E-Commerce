@@ -1,11 +1,27 @@
 class CartController < ApplicationController
   def index
+    if(current_user)
+      @profile = Profile.find_by(user_id: current_user.id)
+    else
+      @profile = nil
+    end
+
     @totalprice = 0
     @government_rate = 5
+    provinces = Provinces.all
+    @province_ids = []
+    provinces.each do |province|
+      @province_ids.push(province.name)
+    end
     if(current_user)
       profile = Profile.find_by(user_id: current_user.id)
-      province = Provinces.find(profile.province_id)
-      @provincial_rate = province.pst
+      if(profile.nil?)
+        @provincial_rate = 0
+      else
+        province = Provinces.find(profile.province_id)
+        @provincial_rate = province.pst
+      end
+
     else
       @provincial_rate = 0
     end

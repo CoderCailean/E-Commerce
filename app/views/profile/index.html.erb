@@ -6,6 +6,7 @@
     <p><strong>Full Name: </strong><%= @profile.full_name%></p>
     <p><strong>Address: </strong><%= @profile.address%></p>
     <p><strong>Postal Code: </strong><%= @profile.postal_code%></p>
+    <p><strong>Postal Code: </strong><%= @user_province.name%></p>
   <% end %>
 
   <div class="columns">
@@ -50,9 +51,9 @@
           <p>Date Placed: <%= order.order_date %></p>
           <p>Fulfillment Status:
             <% if order.fulfillment_status == 1 %>
-            Pending
-            <% elsif order.fulfillment_status == 2%>
             Paid
+            <% elsif order.fulfillment_status == 2%>
+            Awaiting Fulfillment
             <% else %>
             Shipped
             <% end %>

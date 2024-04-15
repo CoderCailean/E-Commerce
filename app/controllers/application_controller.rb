@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action :initialize_session
-  helper_method :cart
+  helper_method :cart, :empty_cart
 
   private
   def initialize_session
@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
       )
     end
     user_products
+  end
+
+  def empty_cart
+    session[:shopping_cart].clear()
   end
 
 end

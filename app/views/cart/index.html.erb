@@ -39,10 +39,27 @@
         <h1 class="title is-4">
           Checkout Summary
         </h1>
-        <p><strong>Subtotal: </strong>$<%= @totalprice %></p>
-        <p><strong>GST: </strong>$<%= '%.2f' % ((@totalprice * @government_rate) / 100) %></p>
-        <p><strong>PST: </strong>$<%= '%.2f' % ((@totalprice * @provincial_rate) / 100) %></p>
-        <p><strong>Total: </strong>$<%= '%.2f' % (((@totalprice * @provincial_rate) / 100) + ((@totalprice * @government_rate) / 100) + @totalprice) %></p>
+        <% if @profile.nil? %>
+          <p><strong>Subtotal: </strong>$<%= @totalprice %></p>
+          <p><strong>GST: </strong>$<%= '%.2f' % ((@totalprice * @government_rate) / 100) %></p>
+
+          <p><strong>Calculate Taxes:</strong></p>
+          <%= form_with url: profile_index_path, method: :post do |f| %>
+            <%= f.label :address, "Address: ", class: "label mt-4" %>
+            <%= f.text_field :address, class: "input" %>
+            <%= f.label :postal_code, "Postal Code: ", class: "label mt-4" %>
+            <%= f.text_field :postal_code, class: "input" %>
+            <%= f.select :province, options_for_select(@province_ids), {}, {class: "select mt-4"} %>
+            <%= button_tag "Calculate Taxes", class: "button mt-4 ml-6" %>
+          <% end %>
+
+          <p><strong>Total: </strong>$<%= '%.2f' % (((@totalprice * @provincial_rate) / 100) + ((@totalprice * @government_rate) / 100) + @totalprice) %></p>
+        <% else %>
+          <p><strong>Subtotal: </strong>$<%= @totalprice %></p>
+          <p><strong>GST: </strong>$<%= '%.2f' % ((@totalprice * @government_rate) / 100) %></p>
+          <p><strong>PST: </strong>$<%= '%.2f' % ((@totalprice * @provincial_rate) / 100) %></p>
+          <p><strong>Total: </strong>$<%= '%.2f' % (((@totalprice * @provincial_rate) / 100) + ((@totalprice * @government_rate) / 100) + @totalprice) %></p>
+        <% end %>
         <%= form_with url: checkout_create_path, remote: true do %>
           <%= hidden_field_tag(:product_ids, cart) %>
           <%= button_tag "Checkout Now", class: "button is-fullwidth" %>
