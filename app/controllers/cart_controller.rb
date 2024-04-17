@@ -8,7 +8,7 @@ class CartController < ApplicationController
 
     @totalprice = 0
     @government_rate = 5
-    provinces = Provinces.all
+    provinces = Province.all
     @province_ids = []
     provinces.each do |province|
       @province_ids.push(province.name)
@@ -18,7 +18,7 @@ class CartController < ApplicationController
       if(profile.nil?)
         @provincial_rate = 0
       else
-        province = Provinces.find(profile.province_id)
+        province = Province.find(profile.province_id)
         @provincial_rate = province.pst
       end
 

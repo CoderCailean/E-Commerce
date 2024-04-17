@@ -3,28 +3,28 @@ require 'uri'
 OrderProduct.delete_all
 Order.delete_all
 User.delete_all
-Provinces.delete_all
+Province.delete_all
 Product.delete_all
 Category.delete_all
 AdminUser.delete_all
 
-Provinces.create(name: "Alberta", gst: 5, pst: 0, hst: 5)
-Provinces.create(name: "British Columbia", gst: 5, pst: 7, hst: 12)
-Provinces.create(name: "Manitoba", gst: 5, pst: 7, hst: 12)
-Provinces.create(name: "New Brunswick", gst: 5, pst: 10, hst: 15)
-Provinces.create(name: "Newfoundland and Labrador", gst: 5, pst: 10, hst: 15)
-Provinces.create(name: "Northwest Territories", gst: 5, pst: 0, hst: 5)
-Provinces.create(name: "Nova Scotia", gst: 5, pst: 10, hst: 15)
-Provinces.create(name: "Nunavut", gst: 5, pst: 0, hst: 5)
-Provinces.create(name: "Ontario", gst: 5, pst: 8, hst: 13)
-Provinces.create(name: "Prince Edward Island", gst: 5, pst: 10, hst: 15)
-Provinces.create(name: "Quebec", gst: 5, pst: 10, hst: 15)
-Provinces.create!(name: "Saskatchewan", gst: 5, pst: 6, hst: 11)
-Provinces.create!(name: "Yukon", gst: 5, pst: 0, hst: 5)
+Province.create(name: "Alberta", gst: 5, pst: 0, hst: 5)
+Province.create(name: "British Columbia", gst: 5, pst: 7, hst: 12)
+Province.create(name: "Manitoba", gst: 5, pst: 7, hst: 12)
+Province.create(name: "New Brunswick", gst: 5, pst: 10, hst: 15)
+Province.create(name: "Newfoundland and Labrador", gst: 5, pst: 10, hst: 15)
+Province.create(name: "Northwest Territories", gst: 5, pst: 0, hst: 5)
+Province.create(name: "Nova Scotia", gst: 5, pst: 10, hst: 15)
+Province.create(name: "Nunavut", gst: 5, pst: 0, hst: 5)
+Province.create(name: "Ontario", gst: 5, pst: 8, hst: 13)
+Province.create(name: "Prince Edward Island", gst: 5, pst: 10, hst: 15)
+Province.create(name: "Quebec", gst: 5, pst: 10, hst: 15)
+Province.create!(name: "Saskatchewan", gst: 5, pst: 6, hst: 11)
+Province.create!(name: "Yukon", gst: 5, pst: 0, hst: 5)
 
 
 10.times do
-  province = Provinces.find(rand(1...10))
+  province = Province.find(rand(1...10))
 
   new_user = User.create!(
     email: Faker::Name.initials(number: 4) + "@gmail.com",

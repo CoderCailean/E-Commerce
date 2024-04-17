@@ -6,13 +6,13 @@ class ProfileController < ApplicationController
 
       if(@profile.nil?)
       else
-        @user_province = Provinces.find(@profile.province_id)
+        @user_province = Province.find(@profile.province_id)
       end
 
       @orders = Order.where(user_id: current_user.id)
 
 
-      provinces = Provinces.all
+      provinces = Province.all
       @province_ids = []
       provinces.each do |province|
         @province_ids.push(province.name)
@@ -28,7 +28,7 @@ class ProfileController < ApplicationController
     postal_code = params[:postal_code] || ""
     method = params[:method] || "create"
 
-    province = Provinces.find_by(name: province_name)
+    province = Province.find_by(name: province_name)
     puts province.inspect
 
     if(method == "update")

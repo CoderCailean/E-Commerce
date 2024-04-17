@@ -2,8 +2,12 @@
 
 one:
   name: MyString
-  tax_rate: 9.99
+  gst: 1
+  pst: 1
+  hst: 1
 
 two:
   name: MyString
-  tax_rate: 9.99
+  gst: 1
+  pst: 1
+  hst: 1

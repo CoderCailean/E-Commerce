@@ -8,7 +8,7 @@ class CheckoutController < ApplicationController
 
     if(current_user)
       profile = Profile.find_by(user_id: current_user.id)
-      province = Provinces.find(profile.province_id)
+      province = Province.find(profile.province_id)
       provincial_rate = province.pst
     else
       provincial_rate = 0

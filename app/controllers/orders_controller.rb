@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
     @orderproducts = OrderProduct.where(order_id: params[:id])
     @products = []
     @order_total = 0
-    @province = Provinces.find(@profile.province_id)
+    @province = Province.find(@profile.province_id)
     product_ids = []
 
     @orderproducts.each do |product|

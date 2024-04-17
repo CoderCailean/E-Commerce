@@ -1,4 +1,3 @@
 class Profile < ApplicationRecord
-  belongs_to :user
-  belongs_to :provinces
+  belongs_to :province, optional: true
 end
