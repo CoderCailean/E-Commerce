@@ -4,6 +4,6 @@ class Product < ApplicationRecord
 
   has_one_attached :image
 
-  # validates :name, :price, :description, presence: true
-  # validates :price, is_numeric: true
+  validates :name, :price, :description, presence: true
+  validates :price, numericality: true
 end
